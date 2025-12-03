@@ -1,5 +1,5 @@
 use serde::Deserialize;
-use figment::{Figment, providers::{Format, Yaml}};
+use figment2::{Figment, providers::{Format, Yaml}};
 
 #[derive(Deserialize, PartialEq, Debug, Clone)]
 pub enum Trigger {

@@ -1,4 +1,4 @@
-use figment::{Figment, providers::{Toml, Format}};
+use figment2::{Figment, providers::{Toml, Format}};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize, PartialEq)]

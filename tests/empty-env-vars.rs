@@ -1,4 +1,4 @@
-use figment::{Figment, providers::Env};
+use figment2::{Figment, providers::Env};
 
 #[derive(serde::Deserialize)]
 struct Config {
@@ -7,7 +7,7 @@ struct Config {
 
 #[test]
 fn empty_env_vars() {
-    figment::Jail::expect_with(|jail| {
+    figment2::Jail::expect_with(|jail| {
         jail.set_env("FOO", "bar");
         jail.set_env("BAZ", "put");
 
