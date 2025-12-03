@@ -70,7 +70,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Profile;
+    /// use figment2::Profile;
     ///
     /// let profile = Profile::new("staging");
     /// assert_eq!(profile, "staging");
@@ -85,7 +85,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Profile;
+    /// use figment2::Profile;
     ///
     /// const STAGING: Profile = Profile::const_new("staging");
     ///
@@ -102,7 +102,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Profile, Jail};
+    /// use figment2::{Profile, Jail};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("MY_PROFILE", "secret");
@@ -132,7 +132,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Profile, Jail};
+    /// use figment2::{Profile, Jail};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("MY_PROFILE", "secret");
@@ -152,7 +152,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Profile;
+    /// use figment2::Profile;
     ///
     /// let profile = Profile::new("static");
     /// let string = profile.as_str();
@@ -166,7 +166,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Profile;
+    /// use figment2::Profile;
     ///
     /// let profile = Profile::new("static");
     /// assert!(profile.starts_with("STAT"));
@@ -182,7 +182,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Profile;
+    /// use figment2::Profile;
     ///
     /// let profile = Profile::new("static");
     /// assert!(profile.is_custom());
@@ -199,7 +199,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Profile, util::map};
+    /// use figment2::{Profile, util::map};
     ///
     /// let profile = Profile::new("static");
     /// let map = profile.collect(map!["hi".into() => 123.into()]);

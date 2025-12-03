@@ -19,7 +19,7 @@ use crate::error::Kind;
 ///
 /// ```rust
 /// // The `Format` trait must be in-scope to use its methods.
-/// use figment::providers::{Format, Data, Json};
+/// use figment2::providers::{Format, Data, Json};
 ///
 /// // These two are equivalent, except the former requires the explicit type.
 /// let json = Data::<Json>::file("foo.json");
@@ -85,7 +85,7 @@ impl<F: Format> Data<F> {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::{Format, Toml}, value::Map};
+    /// use figment2::{Figment, Jail, providers::{Format, Toml}, value::Map};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -105,7 +105,7 @@ impl<F: Format> Data<F> {
     ///     let config: Config = Figment::from(Toml::file("Config.toml")).extract()?;
     ///     assert_eq!(config, Config {
     ///         numbers: vec![1, 2, 3],
-    ///         untyped: figment::util::map!["key".into() => 1, "other".into() => 4],
+    ///         untyped: figment2::util::map!["key".into() => 1, "other".into() => 4],
     ///     });
     ///
     ///     Ok(())
@@ -125,7 +125,7 @@ impl<F: Format> Data<F> {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::{Format, Toml}, value::Map};
+    /// use figment2::{Figment, Jail, providers::{Format, Toml}, value::Map};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -142,7 +142,7 @@ impl<F: Format> Data<F> {
     ///     let config: Config = Figment::from(Toml::string(source)).extract()?;
     ///     assert_eq!(config, Config {
     ///         numbers: vec![1, 2, 3],
-    ///         untyped: figment::util::map!["key".into() => 1, "other".into() => 4],
+    ///         untyped: figment2::util::map!["key".into() => 1, "other".into() => 4],
     ///     });
     ///
     ///     Ok(())
@@ -166,7 +166,7 @@ impl<F: Format> Data<F> {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::{Format, Toml}, value::Map};
+    /// use figment2::{Figment, Jail, providers::{Format, Toml}, value::Map};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -194,13 +194,13 @@ impl<F: Format> Data<F> {
     ///     let config: Config = figment.extract()?;
     ///     assert_eq!(config, Config {
     ///         numbers: vec![1, 2, 3],
-    ///         untyped: figment::util::map!["global".into() => 0, "hi".into() => 7],
+    ///         untyped: figment2::util::map!["global".into() => 0, "hi".into() => 7],
     ///     });
     ///
     ///     let config: Config = figment.select("release").extract()?;
     ///     assert_eq!(config, Config {
     ///         numbers: vec![6, 7, 8],
-    ///         untyped: figment::util::map!["global".into() => 0, "hi".into() => 7],
+    ///         untyped: figment2::util::map!["global".into() => 0, "hi".into() => 7],
     ///     });
     ///
     ///     Ok(())
@@ -223,7 +223,7 @@ impl<F: Format> Data<F> {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::{Format, Toml}};
+    /// use figment2::{Figment, Jail, providers::{Format, Toml}};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -276,7 +276,7 @@ impl<F: Format> Data<F> {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::{Format, Toml}};
+    /// use figment2::{Figment, Jail, providers::{Format, Toml}};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -314,7 +314,7 @@ impl<F: Format> Data<F> {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::{Format, Toml}, value::Map};
+    /// use figment2::{Figment, Jail, providers::{Format, Toml}, value::Map};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config { value: u8 }
@@ -398,7 +398,7 @@ impl<F: Format> Provider for Data<F> {
 /// [`Data`] type, which serves as a provider for all `T: Format`.
 ///
 /// ```rust
-/// use figment::providers::Format;
+/// use figment2::providers::Format;
 ///
 /// # use serde::de::DeserializeOwned;
 /// # struct T;
@@ -407,7 +407,7 @@ impl<F: Format> Provider for Data<F> {
 /// #     const NAME: &'static str = "T";
 /// #     fn from_str<'de, T: DeserializeOwned>(_: &'de str) -> Result<T, Self::Error> { todo!() }
 /// # }
-/// # fn is_provider<T: figment::Provider>(_: T) {}
+/// # fn is_provider<T: figment2::Provider>(_: T) {}
 /// // If `T` implements `Format`, `T` is a `Provider`.
 /// // Initialize it with `T::file()` or `T::string()`.
 /// let provider = T::file("foo.fmt");
@@ -512,7 +512,7 @@ macro_rules! impl_format {
             [`Data`] value with a generic marker of [`", stringify!($name), "`].
             Thus, further use occurs via methods on [`Data`].",
             "\n```\n",
-            "use figment::providers::{Format, ", stringify!($name), "};",
+            "use figment2::providers::{Format, ", stringify!($name), "};",
             "\n\n// Source directly from a source string...",
             "\nlet provider = ", stringify!($name), r#"::string("source-string");"#,
             "\n\n// Or read from a file on disk.",
@@ -554,7 +554,7 @@ impl YamlExtended {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::{Format, Yaml, YamlExtended}};
+    /// use figment2::{Figment, Jail, providers::{Format, Yaml, YamlExtended}};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Circle {

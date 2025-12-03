@@ -5,7 +5,7 @@
 //!
 //! ```rust
 //! use serde::Deserialize;
-//! use figment::{Figment, providers::{Format, Toml, Json, Env}};
+//! use figment2::{Figment, providers::{Format, Toml, Json, Env}};
 //!
 //! #[derive(Deserialize)]
 //! struct Package {
@@ -24,7 +24,7 @@
 //!     // ... and so on ...
 //! }
 //!
-//! # figment::Jail::expect_with(|jail| {
+//! # figment2::Jail::expect_with(|jail| {
 //! # jail.create_file("Cargo.toml", r#"
 //! #   [package]
 //! #   name = "test"
@@ -92,7 +92,7 @@
 //! removing the prefix:
 //!
 //! ```
-//! use figment::{Figment, providers::Env};
+//! use figment2::{Figment, providers::Env};
 //!
 //! let figment = Figment::from(Env::prefixed("MY_APP_"));
 //! ```
@@ -103,7 +103,7 @@
 //! values) with values from `App.json`:
 //!
 //! ```
-//! use figment::{Figment, providers::{Format, Toml, Json, Env}};
+//! use figment2::{Figment, providers::{Format, Toml, Json, Env}};
 //!
 //! let figment = Figment::new()
 //!     .merge(Toml::file("App.toml"))
@@ -118,7 +118,7 @@
 //!
 //! ```rust
 //! use serde::Deserialize;
-//! use figment::{Figment, providers::{Format, Toml, Json, Env}};
+//! use figment2::{Figment, providers::{Format, Toml, Json, Env}};
 //!
 //! #[derive(Debug, PartialEq, Deserialize)]
 //! struct AppConfig {
@@ -127,7 +127,7 @@
 //!     authors: Vec<String>,
 //! }
 //!
-//! figment::Jail::expect_with(|jail| {
+//! figment2::Jail::expect_with(|jail| {
 //!     jail.create_file("App.toml", r#"
 //!         name = "Just a TOML App!"
 //!         count = 100
@@ -213,7 +213,7 @@
 //!
 //! ```rust
 //! use serde::Deserialize;
-//! use figment::{Figment, providers::{Format, Toml, Json, Env}};
+//! use figment2::{Figment, providers::{Format, Toml, Json, Env}};
 //!
 //! #[derive(Debug, PartialEq, Deserialize)]
 //! struct Config {
@@ -230,7 +230,7 @@
 //!     }
 //! }
 //!
-//! figment::Jail::expect_with(|jail| {
+//! figment2::Jail::expect_with(|jail| {
 //!     jail.create_file("Base.toml", r#"
 //!         [default]
 //!         name = "Base-Default"
@@ -354,7 +354,7 @@
 //! ```rust
 //! use serde::{Serialize, Deserialize};
 //!
-//! use figment::{Figment, Provider, Error, Metadata, Profile};
+//! use figment2::{Figment, Provider, Error, Metadata, Profile};
 //!
 //! // The library's required configuration.
 //! #[derive(Debug, Deserialize, Serialize)]
@@ -375,14 +375,14 @@
 //!
 //!     // Provide a default provider, a `Figment`.
 //!     fn figment() -> Figment {
-//!         use figment::providers::Env;
+//!         use figment2::providers::Env;
 //!
 //!         // In reality, whatever the library desires.
 //!         Figment::from(Config::default()).merge(Env::prefixed("APP_"))
 //!     }
 //! }
 //!
-//! use figment::value::{Map, Dict};
+//! use figment2::value::{Map, Dict};
 //!
 //! // Make `Config` a provider itself for composability.
 //! impl Provider for Config {
@@ -391,7 +391,7 @@
 //!     }
 //!
 //!     fn data(&self) -> Result<Map<Profile, Dict>, Error>  {
-//!         figment::providers::Serialized::defaults(Config::default()).data()
+//!         figment2::providers::Serialized::defaults(Config::default()).data()
 //!     }
 //!
 //!     fn profile(&self) -> Option<Profile> {
@@ -420,7 +420,7 @@
 //! framework to also extract values from the same `Figment`:
 //!
 //! ```rust,no_run
-//! use figment::{Figment, Provider, Error};
+//! use figment2::{Figment, Provider, Error};
 //! # struct Config;
 //! # impl Config {
 //! #     fn figment() -> Figment { panic!() }
@@ -465,7 +465,7 @@
 //!
 //! ```rust
 //! use serde::{Serialize, Deserialize};
-//! use figment::{Figment, providers::{Env, Format, Toml, Serialized}};
+//! use figment2::{Figment, providers::{Env, Format, Toml, Serialized}};
 //!
 //! #[derive(Deserialize, Serialize)]
 //! struct Config {
@@ -535,7 +535,7 @@
 //!
 //! ```rust
 //! use clap::Parser;
-//! use figment::{Figment, providers::{Serialized, Toml, Env, Format}};
+//! use figment2::{Figment, providers::{Serialized, Toml, Env, Format}};
 //! use serde::{Serialize, Deserialize};
 //!
 //! #[derive(Parser, Debug, Serialize, Deserialize)]
@@ -543,7 +543,7 @@
 //!     // ...
 //! }
 //!
-//! # figment::Jail::try_with(|_| {
+//! # figment2::Jail::try_with(|_| {
 //! // Parse CLI arguments. Override CLI config values with those in
 //! // `Config.toml` and `APP_`-prefixed environment variables.
 //! let config: Config = Figment::new()

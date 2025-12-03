@@ -45,7 +45,7 @@ use crate::Profile;
 /// example, the interpolater for [`Env`] uppercases each path key:
 ///
 /// ```rust
-/// use figment::Metadata;
+/// use figment2::Metadata;
 ///
 /// let metadata = Metadata::named("environment variable(s)")
 ///     .interpolater(|profile, path| {
@@ -56,7 +56,7 @@ use crate::Profile;
 ///         format!("{}", keys.join("."))
 ///     });
 ///
-/// let profile = figment::Profile::Default;
+/// let profile = figment2::Profile::Default;
 /// let interpolated = metadata.interpolate(&profile, &["key", "path"]);
 /// assert_eq!(interpolated, "KEY.PATH");
 /// ```
@@ -86,7 +86,7 @@ impl Metadata {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Metadata;
+    /// use figment2::Metadata;
     ///
     /// let metadata = Metadata::from("AWS Config Store", "path/to/value");
     /// assert_eq!(metadata.name, "AWS Config Store");
@@ -104,7 +104,7 @@ impl Metadata {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Metadata;
+    /// use figment2::Metadata;
     ///
     /// let metadata = Metadata::named("AWS Config Store");
     /// assert_eq!(metadata.name, "AWS Config Store");
@@ -120,7 +120,7 @@ impl Metadata {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Metadata;
+    /// use figment2::Metadata;
     ///
     /// let metadata = Metadata::named("AWS Config Store").source("config/path");
     /// assert_eq!(metadata.name, "AWS Config Store");
@@ -138,7 +138,7 @@ impl Metadata {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Metadata;
+    /// use figment2::Metadata;
     ///
     /// let metadata = Metadata::named("environment variable(s)")
     ///     .interpolater(|profile, path| {
@@ -149,7 +149,7 @@ impl Metadata {
     ///         format!("{}", keys.join("."))
     ///     });
     ///
-    /// let profile = figment::Profile::Default;
+    /// let profile = figment2::Profile::Default;
     /// let interpolated = metadata.interpolate(&profile, &["key", "path"]);
     /// assert_eq!(interpolated, "KEY.PATH");
     /// ```
@@ -166,7 +166,7 @@ impl Metadata {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Metadata, Profile};
+    /// use figment2::{Metadata, Profile};
     ///
     /// let url = "ftp://config.dev";
     /// let md = Metadata::named("Network").source(url)
@@ -234,7 +234,7 @@ impl Source {
     ///
     /// ```rust
     /// use std::path::Path;
-    /// use figment::Source;
+    /// use figment2::Source;
     ///
     /// let source = Source::from(Path::new("a/b/c.txt"));
     /// assert_eq!(source.file_path(), Some(Path::new("a/b/c.txt")));
@@ -253,7 +253,7 @@ impl Source {
     /// ```rust
     /// use std::panic::Location;
     ///
-    /// use figment::Source;
+    /// use figment2::Source;
     ///
     /// let location = Location::caller();
     /// let source = Source::Code(location);
@@ -270,7 +270,7 @@ impl Source {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Source;
+    /// use figment2::Source;
     ///
     /// let source = Source::Custom("ftp://foo".into());
     /// assert_eq!(source.custom(), Some("ftp://foo"));

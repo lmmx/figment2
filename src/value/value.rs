@@ -18,7 +18,7 @@ pub type Dict = Map<String, Value>;
 /// Note that `Value` implements `From<T>` for all reasonable `T`:
 ///
 /// ```
-/// use figment::value::Value;
+/// use figment2::value::Value;
 ///
 /// let v = Value::from("hello");
 /// assert_eq!(v.as_str(), Some("hello"));
@@ -49,7 +49,7 @@ macro_rules! conversion_fn {
                 `Value::", stringify!($Variant), "`.\n\n",
                 "# Example\n\n",
                 "```\n",
-                "use figment::value::Value;\n\n",
+                "use figment2::value::Value;\n\n",
                 "let value: Value = 123.into();\n",
                 "let converted = value.", stringify!($fn_name), "();\n",
                 "```"
@@ -73,7 +73,7 @@ impl Value {
     /// Serialize a `Value` from any `T: Serialize`.
     ///
     /// ```
-    /// use figment::value::{Value, Empty};
+    /// use figment2::value::{Value, Empty};
     ///
     /// let value = Value::serialize(10i8).unwrap();
     /// assert_eq!(value.to_i128(), Some(10));
@@ -91,7 +91,7 @@ impl Value {
     /// Deserialize `self` into any deserializable `T`.
     ///
     /// ```
-    /// use figment::value::Value;
+    /// use figment2::value::Value;
     ///
     /// let value = Value::from("hello");
     /// let string: String = value.deserialize().unwrap();
@@ -113,7 +113,7 @@ impl Value {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{value::Value, util::map};
+    /// use figment2::{value::Value, util::map};
     ///
     /// let value = Value::from(map! {
     ///     "apple" => map! {
@@ -153,7 +153,7 @@ impl Value {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{value::Value, util::map};
+    /// use figment2::{value::Value, util::map};
     ///
     /// let value = Value::from(map! {
     ///     "apple" => map! {
@@ -190,7 +190,7 @@ impl Value {
     /// Returns the [`Tag`] applied to this value.
     ///
     /// ```
-    /// use figment::{Figment, Profile, value::Value, util::map};
+    /// use figment2::{Figment, Profile, value::Value, util::map};
     ///
     /// let map: Value = Figment::from(("key", "value")).extract().unwrap();
     /// let value = map.find_ref("key").expect("value");
@@ -233,7 +233,7 @@ impl Value {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Value;
+    /// use figment2::value::Value;
     ///
     /// let value: Value = 123u8.into();
     /// let converted = value.to_u128();
@@ -249,7 +249,7 @@ impl Value {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Value;
+    /// use figment2::value::Value;
     ///
     /// let value: Value = 123i8.into();
     /// let converted = value.to_i128();
@@ -268,7 +268,7 @@ impl Value {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Value;
+    /// use figment2::value::Value;
     ///
     /// let value: Value = 7.0f32.into();
     /// let converted = value.to_f64();
@@ -293,7 +293,7 @@ impl Value {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Value;
+    /// use figment2::value::Value;
     ///
     /// let value = Value::from(true);
     /// assert_eq!(value.to_bool_lossy(), Some(true));
@@ -347,7 +347,7 @@ impl Value {
     /// # Examples
     ///
     /// ```
-    /// use figment::value::{Value, Num};
+    /// use figment2::value::{Value, Num};
     ///
     /// let value = Value::from(7_i32);
     /// assert_eq!(value.to_num_lossy(), Some(Num::I32(7)));
@@ -377,7 +377,7 @@ impl Value {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{value::Value, error::Actual};
+    /// use figment2::{value::Value, error::Actual};
     ///
     /// assert_eq!(Value::from('a').to_actual(), Actual::Char('a'));
     /// assert_eq!(Value::from(&[1, 2, 3]).to_actual(), Actual::Seq);
@@ -579,7 +579,7 @@ impl Num {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Num;
+    /// use figment2::value::Num;
     ///
     /// let num: Num = 123u8.into();
     /// assert_eq!(num.to_u32(), Some(123));
@@ -601,7 +601,7 @@ impl Num {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Num;
+    /// use figment2::value::Num;
     ///
     /// let num: Num = 123u8.into();
     /// assert_eq!(num.to_u128(), Some(123));
@@ -624,7 +624,7 @@ impl Num {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Num;
+    /// use figment2::value::Num;
     ///
     /// let num: Num = 123u8.into();
     /// assert_eq!(num.to_u128_lossy(), Some(123));
@@ -656,7 +656,7 @@ impl Num {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Num;
+    /// use figment2::value::Num;
     ///
     /// let num: Num = 123i8.into();
     /// assert_eq!(num.to_i128(), Some(123));
@@ -679,7 +679,7 @@ impl Num {
     /// # Example
     ///
     /// ```
-    /// use figment::value::Num;
+    /// use figment2::value::Num;
     ///
     /// let num: Num = 3.0f32.into();
     /// assert_eq!(num.to_f64(), Some(3.0f64));
@@ -700,7 +700,7 @@ impl Num {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{value::Num, error::Actual};
+    /// use figment2::{value::Num, error::Actual};
     ///
     /// assert_eq!(Num::U8(10).to_actual(), Actual::Unsigned(10));
     /// assert_eq!(Num::U64(2380).to_actual(), Actual::Unsigned(2380));
@@ -768,7 +768,7 @@ impl Empty {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{value::Empty, error::Actual};
+    /// use figment2::{value::Empty, error::Actual};
     ///
     /// assert_eq!(Empty::None.to_actual(), Actual::Option);
     /// assert_eq!(Empty::Unit.to_actual(), Actual::Unit);

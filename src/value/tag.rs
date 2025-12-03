@@ -70,7 +70,7 @@ impl Tag {
     /// # Example
     ///
     /// ```rust
-    /// use figment::value::Tag;
+    /// use figment2::value::Tag;
     ///
     /// assert!(Tag::Default.is_default());
     /// ```
@@ -84,8 +84,8 @@ impl Tag {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Profile;
-    /// use figment::value::Tag;
+    /// use figment2::Profile;
+    /// use figment2::value::Tag;
     ///
     /// assert_eq!(Tag::Default.profile(), Some(Profile::Default));
     /// ```

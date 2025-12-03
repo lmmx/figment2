@@ -29,7 +29,7 @@ use crate::error::Result;
 /// the `?` operator can be used liberally in a jail:
 ///
 /// ```rust
-/// use figment::{Figment, Jail, providers::{Format, Toml, Env}};
+/// use figment2::{Figment, Jail, providers::{Format, Toml, Env}};
 /// # #[derive(serde::Deserialize)]
 /// # struct Config {
 /// #     name: String,
@@ -37,7 +37,7 @@ use crate::error::Result;
 /// #     publish: bool
 /// # }
 ///
-/// figment::Jail::expect_with(|jail| {
+/// figment2::Jail::expect_with(|jail| {
 ///     jail.create_file("Cargo.toml", r#"
 ///       name = "test"
 ///       authors = ["bob"]
@@ -98,7 +98,7 @@ impl Jail {
     /// # Example
     ///
     /// ```rust
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     /* in the jail */
     ///
     ///     Ok(())
@@ -121,7 +121,7 @@ impl Jail {
     /// # Example
     ///
     /// ```rust
-    /// let result = figment::Jail::try_with(|jail| {
+    /// let result = figment2::Jail::try_with(|jail| {
     ///     /* in the jail */
     ///
     ///     Ok(())
@@ -148,7 +148,7 @@ impl Jail {
     /// # Example
     ///
     /// ```rust
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     let tmp_directory = jail.directory();
     ///
     ///     Ok(())
@@ -182,7 +182,7 @@ impl Jail {
     /// # Example
     ///
     /// ```rust
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("MyConfig.json", "contents...")?;
     ///     Ok(())
     /// });
@@ -202,7 +202,7 @@ impl Jail {
     /// # Example
     ///
     /// ```rust
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_binary("file.bin", &[0xFF, 0x4F, 0xFF, 0x51])?;
     ///     Ok(())
     /// });
@@ -233,7 +233,7 @@ impl Jail {
     /// ```rust
     /// use std::path::Path;
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     let dir = jail.create_dir("subdir")?;
     ///     jail.create_file(dir.join("config.json"), "{ foo: 123 }")?;
     ///
@@ -263,7 +263,7 @@ impl Jail {
     /// ```rust
     /// use std::path::Path;
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     assert_eq!(std::env::current_dir().unwrap(), jail.directory());
     ///
     ///     let subdir = jail.create_dir("subdir")?;
@@ -294,7 +294,7 @@ impl Jail {
     /// ```rust
     /// let init_count = std::env::vars_os().count();
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     // We start with _something_ in the env vars.
     ///     assert!(std::env::vars_os().count() != 0);
     ///
@@ -334,7 +334,7 @@ impl Jail {
     ///
     /// assert!(std::env::var(VAR_NAME).is_err());
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.set_env(VAR_NAME, "value");
     ///     assert!(std::env::var(VAR_NAME).is_ok());
     ///     Ok(())

@@ -108,7 +108,7 @@ impl Figment {
     /// providers.
     ///
     /// ```rust
-    /// use figment::Figment;
+    /// use figment2::Figment;
     ///
     /// let figment = Figment::new();
     /// # assert_eq!(figment.profile(), "default");
@@ -126,8 +126,8 @@ impl Figment {
     /// `provider`.
     ///
     /// ```rust
-    /// use figment::Figment;
-    /// use figment::providers::Env;
+    /// use figment2::Figment;
+    /// use figment2::providers::Env;
     ///
     /// let figment = Figment::from(Env::raw());
     /// # assert_eq!(figment.profile(), "default");
@@ -173,9 +173,9 @@ impl Figment {
     /// See [conflict resolution](#conflict-resolution) for details.
     ///
     /// ```rust
-    /// use figment::Figment;
-    /// use figment::util::map;
-    /// use figment::value::{Dict, Map};
+    /// use figment2::Figment;
+    /// use figment2::util::map;
+    /// use figment2::value::{Dict, Map};
     ///
     /// let figment = Figment::new()
     ///     .join(("string", "original"))
@@ -214,9 +214,9 @@ impl Figment {
     /// See [conflict resolution](#conflict-resolution) for details.
     ///
     /// ```rust
-    /// use figment::Figment;
-    /// use figment::util::map;
-    /// use figment::value::{Dict, Map};
+    /// use figment2::Figment;
+    /// use figment2::util::map;
+    /// use figment2::value::{Dict, Map};
     ///
     /// let figment = Figment::new()
     ///     .join(("string", "original"))
@@ -255,9 +255,9 @@ impl Figment {
     /// See [conflict resolution](#conflict-resolution) for details.
     ///
     /// ```rust
-    /// use figment::Figment;
-    /// use figment::util::map;
-    /// use figment::value::{Dict, Map};
+    /// use figment2::Figment;
+    /// use figment2::util::map;
+    /// use figment2::value::{Dict, Map};
     ///
     /// let figment = Figment::new()
     ///     .join(("string", "original"))
@@ -296,9 +296,9 @@ impl Figment {
     /// See [conflict resolution](#conflict-resolution) for details.
     ///
     /// ```rust
-    /// use figment::Figment;
-    /// use figment::util::map;
-    /// use figment::value::{Dict, Map};
+    /// use figment2::Figment;
+    /// use figment2::util::map;
+    /// use figment2::value::{Dict, Map};
     ///
     /// let figment = Figment::new()
     ///     .join(("string", "original"))
@@ -338,7 +338,7 @@ impl Figment {
     /// # Example
     ///
     /// ```
-    /// use figment::Figment;
+    /// use figment2::Figment;
     ///
     /// let figment = Figment::new().select("staging");
     /// assert_eq!(figment.profile(), "staging");
@@ -374,9 +374,9 @@ impl Figment {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Figment, providers::{Format, Toml}};
+    /// use figment2::{Figment, providers::{Format, Toml}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#"
     ///         cat = [1, 2, 3]
     ///         dog = [4, 5, 6]
@@ -441,7 +441,7 @@ impl Figment {
     /// ```rust
     /// use serde::Deserialize;
     ///
-    /// use figment::{Figment, providers::{Format, Toml, Json, Env}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json, Env}};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -450,7 +450,7 @@ impl Figment {
     ///     debug: bool,
     /// }
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#"
     ///         name = "test"
     ///         numbers = [1, 2, 3, 10]
@@ -497,7 +497,7 @@ impl Figment {
     /// ```rust
     /// use serde::Deserialize;
     ///
-    /// use figment::{Figment, providers::{Format, Toml, Json, Env}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json, Env}};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -506,7 +506,7 @@ impl Figment {
     ///     debug: bool,
     /// }
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#"
     ///         name = "test"
     ///         numbers = ["1", "2", "3", "10"]
@@ -547,9 +547,9 @@ impl Figment {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Figment, providers::{Format, Toml, Json}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#"
     ///         numbers = [1, 2, 3, 10]
     ///     "#)?;
@@ -581,9 +581,9 @@ impl Figment {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Figment, providers::{Format, Toml, Json}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#"
     ///         numbers = ["1", "2", "3", "10"]
     ///     "#)?;
@@ -612,7 +612,7 @@ impl Figment {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Figment, providers::{Format, Toml, Json}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json}};
     ///
     /// let figment = Figment::new()
     ///     .merge(Toml::file("Config.toml"))
@@ -641,7 +641,7 @@ impl Figment {
     /// # Example
     ///
     /// ```
-    /// use figment::Figment;
+    /// use figment2::Figment;
     ///
     /// let figment = Figment::new();
     /// assert_eq!(figment.profile(), "default");
@@ -660,7 +660,7 @@ impl Figment {
     /// # Example
     ///
     /// ```
-    /// use figment::{Figment, providers::Serialized};
+    /// use figment2::{Figment, providers::Serialized};
     ///
     /// let figment = Figment::new();
     /// let profiles = figment.profiles().collect::<Vec<_>>();
@@ -706,9 +706,9 @@ impl Figment {
     /// ```rust
     /// use serde::Deserialize;
     ///
-    /// use figment::{Figment, providers::{Format, Toml, Json, Env}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json, Env}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#"
     ///         name = "test"
     ///
@@ -754,9 +754,9 @@ impl Figment {
     /// ```rust
     /// use serde::Deserialize;
     ///
-    /// use figment::{Figment, providers::{Format, Toml, Json, Env}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json, Env}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#"
     ///         name = "test"
     ///
@@ -795,9 +795,9 @@ impl Figment {
     /// ```rust
     /// use serde::Deserialize;
     ///
-    /// use figment::{Figment, providers::{Format, Toml, Json, Env}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json, Env}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#" name = "test" "#)?;
     ///     jail.set_env("CONF_AUTHOR", "Bob");
     ///
@@ -827,9 +827,9 @@ impl Figment {
     /// ```rust
     /// use serde::Deserialize;
     ///
-    /// use figment::{Figment, providers::{Format, Toml, Json, Env}};
+    /// use figment2::{Figment, providers::{Format, Toml, Json, Env}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Config.toml", r#" name = "test" "#)?;
     ///     jail.create_file("Config.json", r#" { "author": "Bob" } "#)?;
     ///

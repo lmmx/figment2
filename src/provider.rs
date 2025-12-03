@@ -37,7 +37,7 @@ use crate::value::{Tag, Map, Dict};
 ///
 /// ```rust,no_run
 /// # use serde::Deserialize;
-/// use figment::{Provider, Metadata, Profile, Error, value::{Map, Dict}};
+/// use figment2::{Provider, Metadata, Profile, Error, value::{Map, Dict}};
 ///
 /// # type Url = String;
 /// /// A provider that fetches its data from a given URL.
