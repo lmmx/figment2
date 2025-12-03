@@ -26,7 +26,6 @@
 /// serde_default_utils = { version = "*", features = ["inline"] }
 /// ```
 
-
 use clap::{error::ErrorKind, CommandFactory, Parser};
 use figment2::{
     providers::{Format, Serialized, Toml},
