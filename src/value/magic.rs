@@ -1371,6 +1371,7 @@ mod _serde {
 mod tests {
     use crate::Figment;
 
+    #[cfg(feature = "toml")]
     #[test]
     fn test_relative_path_buf() {
         use super::RelativePathBuf;

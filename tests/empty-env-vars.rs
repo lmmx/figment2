@@ -1,3 +1,4 @@
+#![cfg(feature = "test")]
 use figment2::{Figment, providers::Env};
 
 #[derive(serde::Deserialize)]

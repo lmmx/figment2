@@ -1,3 +1,4 @@
+#![cfg(all(feature = "yaml", feature="toml"))]
 use serde::Deserialize;
 use figment2::{Figment, providers::{Format, Toml, Json, Env}};
 
