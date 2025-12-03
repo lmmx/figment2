@@ -1,4 +1,7 @@
-use figment::{Figment, providers::{Toml, Format}};
+#![cfg(feature = "toml")]
+use figment2::Figment;
+use figment2::providers::{Format, Toml};
+
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize, PartialEq)]

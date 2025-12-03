@@ -1,5 +1,6 @@
+#![cfg(feature = "toml")]
 use serde::{Deserialize, Serialize};
-use figment::{Figment, providers::{Format, Toml, Serialized, Env}};
+use figment2::{Figment, providers::{Format, Toml, Serialized, Env}};
 
 #[derive(Debug, Default, Deserialize, Serialize)]
 pub struct Config {
@@ -38,7 +39,7 @@ fn test_enum_de() {
         .merge(Toml::file("Test.toml"))
         .merge(Env::prefixed("TEST_"));
 
-    figment::Jail::expect_with(|jail| {
+    figment2::Jail::expect_with(|jail| {
         let test: Config = figment().extract()?;
         assert_eq!(test.foo, None);
         assert_eq!(test.bar, Some(Bar::Some(9999, "not-the-string".into())));

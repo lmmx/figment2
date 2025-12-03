@@ -1,5 +1,7 @@
+#![cfg(feature = "toml")]
 use serde::Deserialize;
-use figment::{Figment, providers::{Toml, Format}};
+use figment2::{Figment, providers::{Toml, Format}};
+
 
 #[derive(Debug, Deserialize, PartialEq)]
 struct Config {

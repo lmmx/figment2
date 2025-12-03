@@ -10,7 +10,7 @@ use crate::{Figment, Profile, Metadata, value::Tag};
 /// A simple alias to `Result` with an error type of [`Error`].
 pub type Result<T> = std::result::Result<T, Error>;
 
-/// An error that occured while producing data or extracting a configuration.
+/// An error that occurred while producing data or extracting a configuration.
 ///
 /// # Constructing Errors
 ///
@@ -26,7 +26,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 ///   * With an error message, as `Error` impls `From<String>` and `From<&str>`:
 ///
 ///     ```
-///     use figment::Error;
+///     use figment2::Error;
 ///
 ///     Error::from(format!("{} is invalid", 1));
 ///
@@ -36,7 +36,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 ///   * With a [`Kind`], as `Error` impls `From<Kind>`:
 ///
 ///     ```
-///     use figment::{error::{Error, Kind}, value::Value};
+///     use figment2::{error::{Error, Kind}, value::Value};
 ///
 ///     let value = Value::serialize(&100).unwrap();
 ///     if !value.as_str().is_some() {
@@ -51,7 +51,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// ```
 /// use std::fs::File;
 ///
-/// fn try_read() -> Result<(), figment::Error> {
+/// fn try_read() -> Result<(), figment2::Error> {
 ///     let x = File::open("/tmp/foo.boo").map_err(|e| e.to_string())?;
 ///     Ok(())
 /// }
@@ -79,7 +79,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// over an `Error`:
 ///
 /// ```rust
-/// fn with_error(error: figment::Error) {
+/// fn with_error(error: figment2::Error) {
 ///     for error in error {
 ///         println!("error: {}", error);
 ///     }
@@ -89,7 +89,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 pub struct Error {
     /// The tag of the value that errored. We use this to lookup the `metadata`.
     tag: Tag,
-    /// The profile that was selected when the error occured, if any.
+    /// The profile that was selected when the error occurred, if any.
     pub profile: Option<Profile>,
     /// The metadata for the provider of the value that errored, if known.
     pub metadata: Option<Metadata>,
@@ -174,7 +174,7 @@ impl Error {
     /// # Example
     ///
     /// ```rust
-    /// use figment::error::{Error, Kind};
+    /// use figment2::error::{Error, Kind};
     ///
     /// let error = Error::from(Kind::MissingField("path".into()));
     /// assert!(error.missing());
@@ -188,7 +188,7 @@ impl Error {
     /// # Example
     ///
     /// ```rust
-    /// use figment::Error;
+    /// use figment2::Error;
     ///
     /// let error = Error::from("an error message").with_path("some_path");
     /// assert_eq!(error.path, vec!["some_path"]);
@@ -208,7 +208,7 @@ impl Error {
     /// Prepends `self` to `error` and returns `error`.
     ///
     /// ```rust
-    /// use figment::error::Error;
+    /// use figment2::error::Error;
     ///
     /// let e1 = Error::from("1");
     /// let e2 = Error::from("2");
@@ -243,9 +243,9 @@ impl Error {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Figment, providers::{Format, Toml}};
+    /// use figment2::{Figment, providers::{Format, Toml}};
     ///
-    /// figment::Jail::expect_with(|jail| {
+    /// figment2::Jail::expect_with(|jail| {
     ///     jail.create_file("Base.toml", r#"
     ///         # oh no, an unclosed array!
     ///         cat = [1

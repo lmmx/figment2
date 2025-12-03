@@ -6,7 +6,7 @@
 //! pairs and is particularly useful during testing:
 //!
 //! ```rust
-//! use figment::util::map;
+//! use figment2::util::map;
 //!
 //! let map = map! {
 //!     "name" => "Bob",
@@ -39,7 +39,7 @@ use serde::de::{self, Unexpected, Deserializer};
 ///
 /// ```
 /// use std::path::Path;
-/// use figment::util::diff_paths;
+/// use figment2::util::diff_paths;
 ///
 /// // Paths must be both relative or both absolute.
 /// assert_eq!(diff_paths("/a/b/c", "b/c"), None);
@@ -111,11 +111,11 @@ pub fn diff_paths<P, B>(path: P, base: B) -> Option<PathBuf>
 /// # Example
 ///
 /// ```rust
-/// use figment::Figment;
+/// use figment2::Figment;
 ///
 /// #[derive(serde::Deserialize)]
 /// struct Config {
-///     #[serde(deserialize_with = "figment::util::bool_from_str_or_int")]
+///     #[serde(deserialize_with = "figment2::util::bool_from_str_or_int")]
 ///     cli_colors: bool,
 /// }
 ///
@@ -177,12 +177,12 @@ pub fn bool_from_str_or_int<'de, D: Deserializer<'de>>(de: D) -> Result<bool, D:
 /// pairs.
 ///
 /// ```
-/// use figment::{Figment, util::map};
+/// use figment2::{Figment, util::map};
 /// use serde::{Serialize, Deserialize};
 ///
 /// #[derive(Debug, Clone, Serialize, Deserialize)]
 /// pub struct Config {
-///     #[serde(with = "figment::util::vec_tuple_map")]
+///     #[serde(with = "figment2::util::vec_tuple_map")]
 ///     pairs: Vec<(String, usize)>
 /// }
 ///
@@ -252,7 +252,7 @@ use crate::value::{Value, Dict};
 /// # Example
 ///
 /// ```rust
-/// use figment::{util::nest, value::Value};
+/// use figment2::{util::nest, value::Value};
 ///
 /// let leaf = Value::from("I'm a leaf!");
 ///

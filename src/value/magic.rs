@@ -1,4 +1,4 @@
-//! (De)serializable values that "magically" use information from the extracing
+//! (De)serializable values that "magically" use information from the extracting
 //! [`Figment`](crate::Figment).
 
 use std::ops::Deref;
@@ -10,7 +10,7 @@ use crate::{Error, value::{ConfiguredValueDe, Interpreter, MapDe, Tag}};
 
 /// Marker trait for "magic" values. Primarily for use with [`Either`].
 pub trait Magic: for<'de> Deserialize<'de> {
-    /// The name of the deserialization pseudo-strucure.
+    /// The name of the deserialization pseudo-structure.
     #[doc(hidden)] const NAME: &'static str;
 
     /// The fields of the pseudo-structure. The last one should be the value.
@@ -27,7 +27,7 @@ pub trait Magic: for<'de> Deserialize<'de> {
 /// Paths in configuration files are often desired to be relative to the
 /// configuration file itself. For example, a path of `a/b.html` configured in a
 /// file `/var/config.toml` might be desired to resolve as `/var/a/b.html`. This
-/// type makes this possible by simply delcaring the configuration value's type
+/// type makes this possible by simply declaring the configuration value's type
 /// as [`RelativePathBuf`].
 ///
 /// # Example
@@ -36,8 +36,8 @@ pub trait Magic: for<'de> Deserialize<'de> {
 /// use std::path::Path;
 ///
 /// use serde::{Deserialize, Serialize};
-/// use figment::{Figment, value::magic::RelativePathBuf, Jail};
-/// use figment::providers::{Env, Format, Toml, Serialized};
+/// use figment2::{Figment, value::magic::RelativePathBuf, Jail};
+/// use figment2::providers::{Env, Format, Toml, Serialized};
 ///
 /// #[derive(Debug, PartialEq, Deserialize, Serialize)]
 /// struct Config {
@@ -87,9 +87,9 @@ pub trait Magic: for<'de> Deserialize<'de> {
 ///     assert_eq!(default.path.relative(), Path::new("some/default/path"));
 ///
 ///     jail.create_file("Config.toml", r#"path = "an/override""#)?;
-///     let overriden: Config = figment.merge(Toml::file("Config.toml")).extract()?;
-///     assert_eq!(overriden.path.original(), Path::new("an/override"));
-///     assert_eq!(overriden.path.relative(), jail.directory().join("an/override"));
+///     let overridden: Config = figment.merge(Toml::file("Config.toml")).extract()?;
+///     assert_eq!(overridden.path.original(), Path::new("an/override"));
+///     assert_eq!(overridden.path.relative(), jail.directory().join("an/override"));
 ///
 ///     Ok(())
 /// });
@@ -108,8 +108,8 @@ pub trait Magic: for<'de> Deserialize<'de> {
 /// use std::path::PathBuf;
 ///
 /// use serde::{Deserialize, Serialize};
-/// use figment::{Figment, value::magic::RelativePathBuf, Jail};
-/// use figment::providers::{Format, Toml, Serialized};
+/// use figment2::{Figment, value::magic::RelativePathBuf, Jail};
+/// use figment2::providers::{Format, Toml, Serialized};
 ///
 /// #[derive(Deserialize, Serialize)]
 /// struct Config {
@@ -217,8 +217,8 @@ impl RelativePathBuf {
     /// ```rust
     /// use std::path::Path;
     ///
-    /// use figment::{Figment, value::magic::RelativePathBuf, Jail};
-    /// use figment::providers::{Format, Toml};
+    /// use figment2::{Figment, value::magic::RelativePathBuf, Jail};
+    /// use figment2::providers::{Format, Toml};
     ///
     /// #[derive(Debug, PartialEq, serde::Deserialize)]
     /// struct Config {
@@ -246,8 +246,8 @@ impl RelativePathBuf {
     /// corresponds to:
     ///
     /// ```rust
-    /// # use figment::{Figment, value::magic::RelativePathBuf, Jail};
-    /// # use figment::providers::{Format, Toml};
+    /// # use figment2::{Figment, value::magic::RelativePathBuf, Jail};
+    /// # use figment2::providers::{Format, Toml};
     /// # use serde::Deserialize;
     /// #
     /// # #[derive(Debug, PartialEq, Deserialize)]
@@ -273,8 +273,8 @@ impl RelativePathBuf {
     /// ```rust
     /// use std::path::Path;
     ///
-    /// use figment::{Figment, value::magic::RelativePathBuf, Jail};
-    /// use figment::providers::{Env, Format, Toml};
+    /// use figment2::{Figment, value::magic::RelativePathBuf, Jail};
+    /// use figment2::providers::{Env, Format, Toml};
     ///
     /// #[derive(Debug, PartialEq, serde::Deserialize)]
     /// struct Config {
@@ -314,8 +314,8 @@ impl RelativePathBuf {
     /// ```rust
     /// use std::path::Path;
     ///
-    /// use figment::{Figment, value::magic::RelativePathBuf, Jail};
-    /// use figment::providers::{Env, Format, Toml};
+    /// use figment2::{Figment, value::magic::RelativePathBuf, Jail};
+    /// use figment2::providers::{Env, Format, Toml};
     ///
     /// #[derive(Debug, PartialEq, serde::Deserialize)]
     /// struct Config {
@@ -346,7 +346,7 @@ impl RelativePathBuf {
     ///
     /// ```rust
     /// use std::path::PathBuf;
-    /// use figment::value::magic::RelativePathBuf;
+    /// use figment2::value::magic::RelativePathBuf;
     /// use serde::Serialize;
     ///
     /// #[derive(Serialize)]
@@ -369,7 +369,7 @@ impl RelativePathBuf {
     ///
     /// ```rust
     /// use std::path::PathBuf;
-    /// use figment::value::magic::RelativePathBuf;
+    /// use figment2::value::magic::RelativePathBuf;
     /// use serde::Serialize;
     ///
     /// #[derive(Serialize)]
@@ -434,7 +434,7 @@ impl RelativePathBuf {
 ///
 /// ```
 /// use serde::{Serialize, Deserialize};
-/// use figment::{Figment, value::magic::{Either, RelativePathBuf, Tagged}};
+/// use figment2::{Figment, value::magic::{Either, RelativePathBuf, Tagged}};
 ///
 /// #[derive(Debug, PartialEq, Deserialize, Serialize)]
 /// struct Config {
@@ -462,7 +462,7 @@ impl RelativePathBuf {
 /// assert_eq!(config.int_or_str, Either::Right("boo!".into()));
 /// assert_eq!(config.path_or_bytes, Either::Right(vec![4, 5, 6].into()));
 ///
-/// let config: Config = Figment::from(figment::providers::Serialized::defaults(Config {
+/// let config: Config = Figment::from(figment2::providers::Serialized::defaults(Config {
 ///     int_or_str: Either::Left(10.into()),
 ///     path_or_bytes: Either::Left("a/b/c".into()),
 /// })).extract().unwrap();
@@ -470,7 +470,7 @@ impl RelativePathBuf {
 /// assert_eq!(config.int_or_str, Either::Left(10.into()));
 /// assert_eq!(config.path_or_bytes, Either::Left("a/b/c".into()));
 ///
-/// let config: Config = Figment::from(figment::providers::Serialized::defaults(Config {
+/// let config: Config = Figment::from(figment2::providers::Serialized::defaults(Config {
 ///     int_or_str: Either::Right("hi".into()),
 ///     path_or_bytes: Either::Right(vec![3, 7, 13]),
 /// })).extract().unwrap();
@@ -496,7 +496,7 @@ impl<'de: 'b, 'b, A, B> Deserialize<'de> for Either<A, B>
     {
         use crate::value::ValueVisitor;
 
-        // FIXME: propogate the error properly
+        // FIXME: propagate the error properly
         let value = de.deserialize_struct(A::NAME, A::FIELDS, ValueVisitor)?;
         match A::deserialize(&value) {
             Ok(value) => Ok(Either::Left(value)),
@@ -529,8 +529,8 @@ impl<'de: 'b, 'b, A, B> Deserialize<'de> for Either<A, B>
 /// A wrapper around any value of type `T` and its [`Tag`].
 ///
 /// ```rust
-/// use figment::{Figment, value::magic::Tagged, Jail};
-/// use figment::providers::{Format, Toml};
+/// use figment2::{Figment, value::magic::Tagged, Jail};
+/// use figment2::providers::{Format, Toml};
 ///
 /// #[derive(Debug, PartialEq, serde::Deserialize)]
 /// struct Config {
@@ -607,7 +607,7 @@ impl<T> Tagged<T> {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Figment, Profile, value::magic::Tagged};
+    /// use figment2::{Figment, Profile, value::magic::Tagged};
     ///
     /// let figment = Figment::from(("key", "value"));
     /// let tagged = figment.extract_inner::<Tagged<String>>("key").unwrap();
@@ -624,7 +624,7 @@ impl<T> Tagged<T> {
     /// # Example
     ///
     /// ```rust
-    /// use figment::{Figment, value::magic::Tagged};
+    /// use figment2::{Figment, value::magic::Tagged};
     ///
     /// let tagged = Figment::from(("key", "value"))
     ///     .extract_inner::<Tagged<String>>("key")
@@ -1371,6 +1371,7 @@ mod _serde {
 mod tests {
     use crate::Figment;
 
+    #[cfg(feature = "toml")]
     #[test]
     fn test_relative_path_buf() {
         use super::RelativePathBuf;

@@ -145,7 +145,7 @@ impl Env {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::Env};
+    /// use figment2::{Figment, Jail, providers::Env};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -176,7 +176,7 @@ impl Env {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::Env};
+    /// use figment2::{Figment, Jail, providers::Env};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -206,11 +206,11 @@ impl Env {
         env
     }
 
-    /// Applys an additional filter to the keys of environment variables being
+    /// Applies an additional filter to the keys of environment variables being
     /// considered.
     ///
     /// ```rust
-    /// use figment::{Jail, providers::Env};
+    /// use figment2::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("FOO_FOO", 100);
@@ -234,13 +234,13 @@ impl Env {
         self.chain(move |prev| prev.filter(|v| filter(v)))
     }
 
-    /// Applys an additional mapping to the keys of environment variables being
+    /// Applies an additional mapping to the keys of environment variables being
     /// considered.
     ///
     /// ```rust
     /// # use std::collections::BTreeMap;
-    /// # use figment::util::map;
-    /// use figment::{Jail, providers::Env};
+    /// # use figment2::util::map;
+    /// use figment2::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("FOO_FOO", 100);
@@ -291,14 +291,14 @@ impl Env {
         self.chain(move |prev| prev.map(|v| mapper(&v).into_owned()))
     }
 
-    /// Simultanously filters and maps the keys of environment variables being
+    /// Simultaneously filters and maps the keys of environment variables being
     /// considered.
     ///
     /// The returned `Env` only yields values for which `f` returns `Some`.
     ///
     /// ```rust
     /// use std::collections::HashMap;
-    /// use figment::{Jail, providers::Env};
+    /// use figment2::{Jail, providers::Env};
     /// use uncased::AsUncased;
     ///
     /// Jail::expect_with(|jail| {
@@ -343,8 +343,8 @@ impl Env {
     /// ```rust
     /// use std::collections::HashMap;
     ///
-    /// use figment::{Jail, Profile, Provider};
-    /// use figment::providers::Env;
+    /// use figment2::{Jail, Profile, Provider};
+    /// use figment2::providers::Env;
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.clear_env();
@@ -384,7 +384,7 @@ impl Env {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, util::map, value::Dict, providers::Env};
+    /// use figment2::{Figment, Jail, util::map, value::Dict, providers::Env};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Foo {
@@ -433,7 +433,7 @@ impl Env {
     /// Filters out all environment variable keys contained in `keys`.
     ///
     /// ```rust
-    /// use figment::{Jail, providers::Env};
+    /// use figment2::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("FOO_FOO", 1);
@@ -458,7 +458,7 @@ impl Env {
     /// Filters out all environment variables keys _not_ contained in `keys`.
     ///
     /// ```rust
-    /// use figment::{Jail, providers::Env};
+    /// use figment2::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("FOO_FOO", 1);
@@ -494,7 +494,7 @@ impl Env {
     /// REPLACEMENT CHARACTER`. Values are otherwise unmodified.
     ///
     /// ```rust
-    /// use figment::{Jail, providers::Env};
+    /// use figment2::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("FOO_B", 2);
@@ -541,7 +541,7 @@ impl Env {
     /// Sets the profile config data will be emitted to.
     ///
     /// ```rust
-    /// use figment::{Profile, providers::Env};
+    /// use figment2::{Profile, providers::Env};
     ///
     /// let env = Env::raw();
     /// assert_eq!(env.profile, Profile::Default);
@@ -557,7 +557,7 @@ impl Env {
     /// Sets the profile config data will be emitted to to `global`.
     ///
     /// ```rust
-    /// use figment::{Profile, providers::Env};
+    /// use figment2::{Profile, providers::Env};
     ///
     /// let env = Env::raw();
     /// assert_eq!(env.profile, Profile::Default);
@@ -574,7 +574,7 @@ impl Env {
     /// with name `name`. Retrieval is case-insensitive.
     ///
     /// ```rust
-    /// use figment::{Jail, providers::Env};
+    /// use figment2::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("TESTING", 123);
@@ -598,7 +598,7 @@ impl Env {
     /// is case-insensitive.
     ///
     /// ```rust
-    /// use figment::{Jail, providers::Env};
+    /// use figment2::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {
     ///     jail.set_env("TESTING", 123);

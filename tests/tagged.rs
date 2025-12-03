@@ -1,5 +1,6 @@
-use figment::{Figment, Jail, Profile};
-use figment::{value::{Value, magic::Tagged}, providers::Serialized};
+#![cfg(feature = "test")]
+use figment2::{Figment, Jail, Profile};
+use figment2::{value::{Value, magic::Tagged}, providers::Serialized};
 
 #[test]
 fn check_values_are_tagged_with_profile() {

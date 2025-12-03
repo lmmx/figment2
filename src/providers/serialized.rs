@@ -50,7 +50,7 @@ impl<T> Serialized<T> {
     ///
     /// ```rust
     /// use serde::Deserialize;
-    /// use figment::{Figment, Jail, providers::Serialized, util::map};
+    /// use figment2::{Figment, Jail, providers::Serialized, util::map};
     ///
     /// #[derive(Debug, PartialEq, Deserialize)]
     /// struct Config {
@@ -134,7 +134,7 @@ impl<T> Serialized<T> {
     /// Sets the profile to emit the serialized value to.
     ///
     /// ```rust
-    /// use figment::{Figment, Jail, providers::Serialized};
+    /// use figment2::{Figment, Jail, providers::Serialized};
     ///
     /// Jail::expect_with(|jail| {
     ///     // This is also `Serialized::defaults(&map)`;
@@ -161,7 +161,7 @@ impl<T> Serialized<T> {
     /// See [Data (keyed)](#provider-details) for key path details.
     ///
     /// ```rust
-    /// use figment::{Figment, Jail, providers::Serialized};
+    /// use figment2::{Figment, Jail, providers::Serialized};
     ///
     /// Jail::expect_with(|jail| {
     ///     // This is also `Serialized::defaults(&map)`;

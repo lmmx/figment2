@@ -1,4 +1,5 @@
-use figment::{Figment, providers::Env};
+#![cfg(feature = "test")]
+use figment2::{Figment, providers::Env};
 
 #[test]
 fn camel_case() {
@@ -8,7 +9,7 @@ fn camel_case() {
         top_key_1: i32
     }
 
-    figment::Jail::expect_with(|jail| {
+    figment2::Jail::expect_with(|jail| {
         jail.set_env("topKey1", "100");
 
         let config: Config = Figment::new()

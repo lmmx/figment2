@@ -1,5 +1,6 @@
+#![cfg(all(feature = "yaml", feature="toml"))]
 use serde::Deserialize;
-use figment::{Figment, providers::{Format, Toml, Json, Env}};
+use figment2::{Figment, providers::{Format, Toml, Json, Env}};
 
 #[test]
 fn mini_cargo() {
@@ -20,7 +21,7 @@ fn mini_cargo() {
 
     // Replicate part of Cargo's config but also support `Cargo.json` with lower
     // precedence than `Cargo.toml`.
-    figment::Jail::expect_with(|jail| {
+    figment2::Jail::expect_with(|jail| {
         jail.create_file("Cargo.toml", r#"
             [package]
             name = "test"
