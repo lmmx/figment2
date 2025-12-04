@@ -126,6 +126,8 @@ pub struct Env {
     prefix: Option<String>,
     /// We use this to generate better metadata when available.
     lowercase: bool,
+    /// Ignore empty env values (treat as unset).
+    ignore_empty: bool,
     /// Custom parser function
     parser_fn: Box<dyn Parser>,
 }
@@ -143,6 +145,7 @@ impl Env {
             profile: Profile::Default,
             prefix: None,
             lowercase: true,
+            ignore_empty: false,
             parser_fn: Box::new(|v| v.parse().expect("infallible")),
         }
     }
@@ -156,6 +159,7 @@ impl Env {
             profile: self.profile,
             prefix: self.prefix,
             lowercase: true,
+            ignore_empty: self.ignore_empty,
             parser_fn: self.parser_fn,
         }
     }
@@ -568,6 +572,41 @@ impl Env {
         self.filter(move |key| keys.iter().any(|k| k.as_str() == key))
     }
 
+    /// Ignore empty env values (treat as unset).
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use std::collections::HashMap;
+    ///
+    /// use figment2::{Jail, Profile, Provider};
+    /// use figment2::providers::Env;
+    ///
+    /// Jail::expect_with(|jail| {
+    ///     jail.clear_env();
+    ///     jail.set_env("FOO_FOO", "");
+    ///     jail.set_env("FOO_BAR", "TEST");
+    ///
+    ///     // The default is not ignore empty values.
+    ///     let env = Env::prefixed("FOO_");
+    ///     let data = env.data().unwrap();
+    ///     assert!(data[&Profile::Default].contains_key("foo"));
+    ///     assert!(data[&Profile::Default].contains_key("bar"));
+    ///
+    ///     // This can be changed with `ignore_empty(true)`
+    ///     let env = Env::prefixed("FOO_").ignore_empty(true);
+    ///     let data = env.data().unwrap();
+    ///     assert!(!data[&Profile::Default].contains_key("foo"));
+    ///     assert!(data[&Profile::Default].contains_key("bar"));
+    ///
+    ///     Ok(())
+    /// });
+    /// ```
+    pub fn ignore_empty(mut self, ignore: bool) -> Self {
+        self.ignore_empty = ignore;
+        self
+    }
+
     /// Returns an iterator over all of the environment variable `(key, value)`
     /// pairs that will be considered by `self`. The order is not specified.
     ///
@@ -612,6 +651,9 @@ impl Env {
                 let key = (self.filter_map)(UncasedStr::new(key.trim()))?;
                 let key = key.as_str().trim();
                 if key.split('.').any(|s| s.is_empty()) { return None }
+                if self.ignore_empty && v.is_empty() {
+                    return None;
+                }
 
                 let key = match self.lowercase {
                     true => key.to_ascii_lowercase(),
