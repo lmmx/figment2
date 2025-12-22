@@ -15,7 +15,7 @@ repos:
         exclude: docs/cli.md # Exclude generated doc
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1
+    rev: typos-dict-v0.13.13
     hooks:
       - id: typos
 
