@@ -203,7 +203,7 @@ impl Env {
     ///
     ///     let config = Figment::new()
     ///         .merge(Env::raw().parser(|v| {
-    ///             serde_yaml::from_str(v).unwrap_or_else(|_| figment2::value::Value::from(v))
+    ///             serde_norway::from_str(v).unwrap_or_else(|_| figment2::value::Value::from(v))
     ///         }))
     ///         .extract::<Config>()?;
     ///
