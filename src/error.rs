@@ -2,6 +2,7 @@
 
 use std::fmt::{self, Display};
 use std::borrow::Cow;
+use std::ops::{Deref, DerefMut};
 
 use serde::{ser, de};
 
@@ -85,8 +86,25 @@ pub type Result<T> = std::result::Result<T, Error>;
 ///     }
 /// }
 /// ```
-#[derive(Clone, Debug, PartialEq)]
+///
+/// # Size
+///
+/// `Error` boxes its payload so that `Result<T, Error>` stays pointer-sized and
+/// does not trigger `clippy::result_large_err`.
+#[derive(Clone, PartialEq)]
+#[repr(transparent)]
 pub struct Error {
+    inner: Box<ErrorInner>,
+}
+
+const _: () = assert!(std::mem::size_of::<Error>() <= 128);
+
+/// The contents of an [`Error`].
+///
+/// [`Error`] is a thin wrapper around a boxed `ErrorInner` so that
+/// `Result<T, Error>` remains small.
+#[derive(Clone, Debug, PartialEq)]
+pub struct ErrorInner {
     /// The tag of the value that errored. We use this to lookup the `metadata`.
     tag: Tag,
     /// The profile that was selected when the error occurred, if any.
@@ -98,6 +116,33 @@ pub struct Error {
     /// The error kind.
     pub kind: Kind,
     prev: Option<Box<Error>>,
+}
+
+impl Deref for Error {
+    type Target = ErrorInner;
+
+    fn deref(&self) -> &Self::Target {
+        &self.inner
+    }
+}
+
+impl DerefMut for Error {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.inner
+    }
+}
+
+impl fmt::Debug for Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Error")
+            .field("tag", &self.inner.tag)
+            .field("profile", &self.inner.profile)
+            .field("metadata", &self.inner.metadata)
+            .field("path", &self.inner.path)
+            .field("kind", &self.inner.kind)
+            .field("prev", &self.inner.prev)
+            .finish()
+    }
 }
 
 /// An error kind, encapsulating serde's [`serde::de::Error`].
@@ -413,12 +458,14 @@ impl ser::Error for Error {
 impl From<Kind> for Error {
     fn from(kind: Kind) -> Error {
         Error {
-            tag: Tag::Default,
-            path: vec![],
-            profile: None,
-            metadata: None,
-            prev: None,
-            kind,
+            inner: Box::new(ErrorInner {
+                tag: Tag::Default,
+                path: vec![],
+                profile: None,
+                metadata: None,
+                prev: None,
+                kind,
+            }),
         }
     }
 }
@@ -531,5 +578,37 @@ impl fmt::Display for OneOf {
 impl de::Expected for OneOf {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         Display::fmt(self, f)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // clippy::result_large_err's default threshold is 128 bytes. Returning
+    // `Result<T, Error>` must stay at or below that so downstream crates with
+    // `-D warnings` keep compiling.
+    #[test]
+    fn error_fits_result_large_err_threshold() {
+        let size = std::mem::size_of::<Error>();
+        assert!(
+            size <= 128,
+            "Error is {} bytes; clippy::result_large_err fires above 128",
+            size
+        );
+    }
+
+    #[test]
+    fn error_fields_remain_accessible() {
+        let mut error = Error::from("an error message").with_path("some.path");
+        assert_eq!(error.path, ["some", "path"]);
+        assert!(matches!(error.kind, Kind::Message(_)));
+        assert!(error.metadata.is_none());
+        assert!(error.profile.is_none());
+
+        error.path.push("more".into());
+        assert_eq!(error.path, ["some", "path", "more"]);
+        error.kind = Kind::MissingField("port".into());
+        assert!(error.missing());
     }
 }
