@@ -31,7 +31,8 @@ impl Coalescible for Value {
         match (self, other, o) {
             (D(t, a), D(_, b), Join | Adjoin | Zipjoin) => D(t, a.coalesce(b, o)),
             (D(_, a), D(t, b), Merge | Admerge | Zipmerge) => D(t, a.coalesce(b, o)),
-            (A(t, a), A(_, b), _) => A(t, a.coalesce(b, o)),
+            (A(t, a), A(_, b), Join | Adjoin | Zipjoin) => A(t, a.coalesce(b, o)),
+            (A(_, a), A(t, b), Merge | Admerge | Zipmerge) => A(t, a.coalesce(b, o)),
             (v, _, Join | Adjoin | Zipjoin) | (_, v, Merge | Admerge | Zipmerge) => v,
         }
     }
